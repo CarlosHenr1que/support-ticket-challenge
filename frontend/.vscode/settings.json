@@ -1,0 +1,21 @@
+{
+  "files.exclude": {
+    "**/.git": true,
+    "**/.svn": true,
+    "**/.hg": true,
+    "**/CVS": true,
+    "**/.DS_Store": true,
+    "**/Thumbs.db": true,
+
+    ".editorconfig": true,
+    ".prettierignore": true,
+    ".prettierrc": true,
+    ".nvmrc": true,
+    ".gitignore": true,
+    "eslint.config.mjs": false,
+    "jest.config.ts": false,
+    "nodemon.json": true,
+    "tsconfig.json": false,
+    "node_modules": false
+  }
+}

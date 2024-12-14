@@ -1,0 +1,11 @@
+{
+  "recommendations": [
+    "EditorConfig.EditorConfig",
+    "dbaeumer.vscode-eslint",
+    "esbenp.prettier-vscode",
+    "rvest.vs-code-prettier-eslint",
+    "kisstkondoros.vscode-codemetrics",
+    "vivaxy.vscode-conventional-commits",
+    "mikestead.dotenv"
+  ]
+}

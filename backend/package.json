@@ -11,7 +11,8 @@
     "lint": "eslint .",
     "lint:f": "yarn run lint --fix",
     "build": "rimraf dist && tsc",
-    "start": "nodemon",
+    "dev": "nodemon",
+    "start": "yarn build && node dist/server.js",
     "test": "jest --passWithNoTests --runInBand --detectOpenHandles",
     "test:w": "yarn run test --no-cache --watchAll",
     "test:c": "yarn run test --coverage"

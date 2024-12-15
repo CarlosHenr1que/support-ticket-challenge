@@ -8,6 +8,7 @@ import TicketModel from './infra/model/ticket'
 import { AddTicketController } from './interface/controllers/add-ticket'
 import { GetTicketsController } from './interface/controllers/get-tickets'
 import { UpdateTicketController } from './interface/controllers/update-ticket'
+import { GetReportController } from './interface/controllers/get-report'
 
 beforeAll(async () => {
   await start()
@@ -99,6 +100,24 @@ describe('Tickets router', () => {
       const { id } = await TicketModel.create(ticketParams)
       jest.spyOn(UpdateTicketController.prototype, 'handle').mockResolvedValueOnce({ statusCode: 500, body: {} })
       const response = await request(app).put(`/tickets/${id}`).send(ticketParams)
+
+      expect(response.statusCode).toBe(500)
+    })
+  })
+
+  describe('Get tickets report route', () => {
+    test('should return a response with correct headers', async () => {
+      await TicketModel.create(ticketParams)
+      const response = await request(app).get('/report').send()
+
+      expect(response.statusCode).toBe(200)
+      expect(response.headers['content-type']).toBe('application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
+      expect(response.headers['content-disposition']).toMatch(/attachment; filename=.*\.xlsx/)
+    })
+
+    test('should return 500 if controller returns a server error', async () => {
+      jest.spyOn(GetReportController.prototype, 'handle').mockResolvedValueOnce({ statusCode: 500, body: {} })
+      const response = await request(app).get('/report').send()
 
       expect(response.statusCode).toBe(500)
     })

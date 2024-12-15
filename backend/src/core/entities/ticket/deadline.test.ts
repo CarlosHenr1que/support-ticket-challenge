@@ -34,13 +34,4 @@ describe('Deadline entity domain', () => {
     expect(deadline).toBeInstanceOf(InvalidDeadlineError)
     expect((resultOrError.value as Error).message).toBe(`The deadline "${invalidDate}" is invalid.`)
   })
-
-  it('should return an InvalidDeadlineError when given a past date', () => {
-    const pastDate = new Date()
-    pastDate.setDate(pastDate.getDate() - 1)
-    const result = Deadline.create(pastDate.toISOString()).value as Error
-
-    expect(result).toBeInstanceOf(InvalidDeadlineError)
-    expect(result.message).toBe(`The deadline "${pastDate.toISOString()}" is invalid.`)
-  })
 })

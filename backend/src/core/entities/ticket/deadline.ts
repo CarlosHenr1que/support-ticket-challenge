@@ -26,7 +26,6 @@ export class Deadline {
 
   static validate(deadline: Date): boolean {
     if (isNaN(deadline.getTime())) return false
-    if (deadline <= new Date()) return false
     return true
   }
 }

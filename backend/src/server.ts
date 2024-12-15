@@ -1,24 +1,11 @@
-import express from 'express'
 import mongoose from 'mongoose'
-import cors from 'cors'
 import { MongoMemoryServer } from 'mongodb-memory-server'
-import { ticketsRouter } from './interface/routes/ticket-routes'
+import app from './interface/http/express'
 
 const start = async () => {
   try {
-    // Creating the mongoDB memory server
     const mongoServer = await MongoMemoryServer.create()
-
-    // Connecting to the mongoDB memory server using mongoose
     await mongoose.connect(mongoServer.getUri(), { dbName: 'notificationsDB' })
-
-    // Creating the express app
-    const app = express()
-    app.use(cors())
-    app.use(express.json())
-    app.use(ticketsRouter)
-
-    // Starting the server
     await new Promise<void>((resolve, reject) => {
       app.listen(3000, resolve).on('error', reject)
     })
@@ -39,4 +26,4 @@ if (require.main === module) {
   start()
 }
 
-export { start }
+export { start, app }

@@ -5,9 +5,10 @@ export const badRequest = (error: Error): HttpResponse => ({
   body: error.message,
 })
 
-export const ok = (data: unknown): HttpResponse => ({
+export const ok = (data: unknown, headers?: unknown): HttpResponse => ({
   statusCode: 200,
   body: data,
+  headers,
 })
 
 export const created = (data: unknown): HttpResponse => ({

@@ -1,6 +1,6 @@
 import React from 'react';
 import '@testing-library/jest-dom';
-import { render, screen } from '@testing-library/react';
+import { fireEvent, render, screen } from '@testing-library/react';
 
 import App from './App';
 import { ThemeProvider } from '@mui/material';
@@ -27,4 +27,25 @@ describe('App Component', () => {
     expect(await screen.findByText(tickets[0].issue)).toBeInTheDocument()
     expect(await screen.findByText(formatDate(tickets[0].deadline))).toBeInTheDocument()
   });
+
+  it('should add a ticket when create ticket is pressed', async () => {
+    const tickets: Ticket[] = [{
+      client: "John Doe",
+      issue: "Cannot access my account",
+      status: "open",
+      deadline: "2024-12-15T15:19:14.980Z",
+    }];
+    jest.spyOn(ticketService, "addTicketRequest").mockResolvedValueOnce(tickets[0])
+
+    render(<ThemeProvider theme={theme}><App /></ThemeProvider>)
+
+    const button = screen.getByText('Create new');
+    fireEvent.click(button);
+
+    expect(await screen.findByText(tickets[0].client.toUpperCase())).toBeInTheDocument()
+    expect(await screen.findByText(tickets[0].issue)).toBeInTheDocument()
+    expect(await screen.findByText(formatDate(tickets[0].deadline))).toBeInTheDocument()
+  });
+
+
 });

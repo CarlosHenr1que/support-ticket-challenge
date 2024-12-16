@@ -13,4 +13,5 @@ const start = async () => {
     console.log(error)
   }
 }
+start()
 export { start, app }

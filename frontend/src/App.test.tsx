@@ -12,6 +12,11 @@ import { formatDate } from './utils/date';
 
 describe('App Component', () => {
 
+  beforeAll(() => {
+    global.URL.createObjectURL = jest.fn(() => 'mock-url');
+    global.URL.revokeObjectURL = jest.fn();
+  });
+
   it('should fetch and display tickets on load', async () => {
     const tickets: Ticket[] = [{
       client: "John Doe",
@@ -86,5 +91,18 @@ describe('App Component', () => {
     fireEvent.click(switchButton)
 
     expect(await screen.findAllByText(ticket.client.toUpperCase())).toHaveLength(2)
+  });
+
+  it('should trigger donwload report when button is pressed', async () => {
+    const file = new Blob(['report content'], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+    const donwloadTicketReportSpy = jest.spyOn(ticketService, "donwloadTicketsReportRequest").mockResolvedValue(file)
+
+
+    render(<ThemeProvider theme={theme}><App /></ThemeProvider>)
+
+    const switchButton = (await screen.findByText("Generate report"))
+    fireEvent.click(switchButton)
+
+    expect(donwloadTicketReportSpy).toHaveBeenCalled()
   });
 });

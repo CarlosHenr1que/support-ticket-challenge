@@ -34,4 +34,12 @@ describe('TicketCard', () => {
         const statusImage = screen.getByAltText('status');
         expect((statusImage as any).src).toContain('/status-green.svg');
     });
+
+    it('should display the correct status icon based on deadline and ticket status', () => {
+        const futureTicket = { ...mockTicket, deadline: '2025-12-31' };
+        render(<TicketCard position={1} ticket={futureTicket} onSwitch={mockOnSwitch} />);
+
+        const statusImage = screen.getByAltText('status');
+        expect((statusImage as any).src).toContain('/status-yellow.svg');
+    });
 });

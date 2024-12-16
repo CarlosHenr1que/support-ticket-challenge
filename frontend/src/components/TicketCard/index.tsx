@@ -22,7 +22,7 @@ export const TicketCard = ({ position, ticket, onSwitch }: Props) => {
         }
     };
     return (
-        <Box component="article" bgcolor="#CEE2F6" borderRadius={2} p={2} width="40%" aria-labelledby={`ticket-${position}`} >
+        <Box component="article" bgcolor="#CEE2F6" borderRadius={2} p={2}  sx={{ width: { sm: "100%", md: "40%" } }} aria-labelledby={`ticket-${position}`} >
             <Box sx={{
                 flexDirection: {
                     xs: 'column',

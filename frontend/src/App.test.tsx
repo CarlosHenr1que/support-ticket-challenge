@@ -68,4 +68,23 @@ describe('App Component', () => {
 
     expect(updateTicketSpy).toHaveBeenCalled()
   });
+
+  it('should generate random tickets when generate randomly is pressed', async () => {
+    const ticket: Ticket = {
+      client: "John Doe",
+      issue: "Cannot access my account",
+      status: "open",
+      deadline: "2024-12-15T15:19:14.980Z",
+    };
+    jest.spyOn(ticketService, "getTicketsRequest").mockResolvedValueOnce([])
+    jest.spyOn(ticketService, "addTicketRequest").mockResolvedValue(ticket)
+
+
+    render(<ThemeProvider theme={theme}><App /></ThemeProvider>)
+
+    const switchButton = (await screen.findByText("Create Ramdomly"))
+    fireEvent.click(switchButton)
+
+    expect(await screen.findAllByText(ticket.client.toUpperCase())).toHaveLength(2)
+  });
 });

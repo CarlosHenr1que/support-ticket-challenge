@@ -1,4 +1,4 @@
-import { addTicketRequest, getTicketsRequest, Ticket, updateTicketRequest, URL } from './ticket';
+import { addTicketRequest, donwloadTicketsReportRequest, getTicketsRequest, Ticket, updateTicketRequest, URL } from './ticket';
 global.fetch = jest.fn();
 
 describe('API Requests', () => {
@@ -119,5 +119,20 @@ describe('API Requests', () => {
         const result = await updateTicketRequest(mockTicket);
 
         expect(result).toBeUndefined();
+    });
+
+    it('should make a GET request to download tickets report', async () => {
+        const mockBlob = new Blob([], { type: 'application/pdf' });
+        (fetch as jest.Mock).mockResolvedValueOnce({
+            ok: true,
+            blob: async () => mockBlob,
+        });
+
+        const result = await donwloadTicketsReportRequest();
+
+        expect(fetch).toHaveBeenCalledWith(`${URL}/report`, expect.objectContaining({
+            method: 'GET',
+        }));
+        expect(result).toEqual(mockBlob);
     });
 });

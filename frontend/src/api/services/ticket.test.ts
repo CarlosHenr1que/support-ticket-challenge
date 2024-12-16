@@ -135,4 +135,14 @@ describe('API Requests', () => {
         }));
         expect(result).toEqual(mockBlob);
     });
+
+    it('should return undefined if donwloadTicketsReportRequest fails', async () => {
+        (fetch as jest.Mock).mockResolvedValueOnce({
+            ok: false,
+        });
+
+        const result = await donwloadTicketsReportRequest();
+
+        expect(result).toBeUndefined();
+    });
 });

@@ -28,4 +28,10 @@ describe('TicketCard', () => {
         fireEvent.click(switchElement);
         expect(mockOnSwitch).toHaveBeenCalled();
     });
+
+    it('should display the correct status icon based on ticket status', () => {
+        render(<TicketCard position={1} ticket={{ ...mockTicket, status: 'closed' }} onSwitch={mockOnSwitch} />);
+        const statusImage = screen.getByAltText('status');
+        expect((statusImage as any).src).toContain('/status-green.svg');
+    });
 });

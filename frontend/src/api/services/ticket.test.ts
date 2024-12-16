@@ -31,4 +31,20 @@ describe('API Requests', () => {
         }));
         expect(result).toEqual(mockResponse);
     });
+
+    it('should return undefined if addTicketRequest fails', async () => {
+        const mockTicket: Ticket = {
+            client: 'Client A',
+            issue: 'Issue description',
+            status: 'open',
+            deadline: '2024-12-31',
+        };
+        (fetch as jest.Mock).mockResolvedValueOnce({
+            ok: false,
+        });
+
+        const result = await addTicketRequest(mockTicket);
+
+        expect(result).toBeUndefined();
+    });
 });

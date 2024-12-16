@@ -48,6 +48,8 @@ yarn test:c
 ## Front end
 The frontend is built with TypeScript and React, leveraging Material UI for responsive, customizable components following Material Design. It uses fetch to interact with the backend API, handling data requests and errors. The application is modular, with components, hooks, and pages organized for scalability.
 
+<img src=".github/assets/screen.png" alt="Support Ticket System">
+
 ### Project Sctructure
 The frontend project follows a structured and organized layout within the src directory:
 

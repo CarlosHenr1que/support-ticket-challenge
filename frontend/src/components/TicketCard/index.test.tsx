@@ -42,4 +42,11 @@ describe('TicketCard', () => {
         const statusImage = screen.getByAltText('status');
         expect((statusImage as any).src).toContain('/status-yellow.svg');
     });
+
+    it('should disable the TextField', () => {
+        render(<TicketCard position={1} ticket={mockTicket} onSwitch={mockOnSwitch} />);
+
+        const textField = screen.getByRole('textbox');
+        expect(textField).toBeDisabled();
+    });
 });

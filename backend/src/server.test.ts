@@ -30,6 +30,18 @@ const ticketParams = {
 }
 
 describe('Tickets router', () => {
+  it('should log an error if mongoose.connect fails', async () => {
+    const consoleSpy = jest.spyOn(console, 'log').mockImplementation(() => {})
+    const mockError = new Error('Mocked connection error')
+    jest.spyOn(mongoose, 'connect').mockImplementationOnce(() => {
+      throw new Error('Mocked connection error')
+    })
+
+    await start()
+
+    expect(consoleSpy).toHaveBeenCalledWith(mockError)
+    consoleSpy.mockRestore()
+  })
   describe('Add ticket route', () => {
     test('should return 201 when valid params', async () => {
       const response = await request(app).post('/tickets').send(ticketParams)

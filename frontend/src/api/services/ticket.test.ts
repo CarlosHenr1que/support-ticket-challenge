@@ -1,4 +1,4 @@
-import { addTicketRequest, Ticket, URL } from './ticket';
+import { addTicketRequest, getTicketsRequest, Ticket, URL } from './ticket';
 global.fetch = jest.fn();
 
 describe('API Requests', () => {
@@ -46,5 +46,25 @@ describe('API Requests', () => {
         const result = await addTicketRequest(mockTicket);
 
         expect(result).toBeUndefined();
+    });
+
+    it('should make a GET request to get tickets', async () => {
+        const mockTickets: Ticket[] = [
+            { client: 'Client A', issue: 'Issue description', status: 'open', deadline: '2024-12-31' },
+        ];
+        (fetch as jest.Mock).mockResolvedValueOnce({
+            ok: true,
+            json: async () => mockTickets,
+        });
+
+        const result = await getTicketsRequest();
+
+        expect(fetch).toHaveBeenCalledWith(`${URL}/tickets`, expect.objectContaining({
+            method: 'GET',
+            headers: expect.objectContaining({
+                'Content-Type': 'application/json',
+            }),
+        }));
+        expect(result).toEqual(mockTickets);
     });
 });

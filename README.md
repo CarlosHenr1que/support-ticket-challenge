@@ -1,45 +1,66 @@
+# Challenge: Building a Support Ticket System
+This project focuses on solving the challenge of ticket management by developing a REST API for managing ticket information and a web frontend that consumes the API data.
 
-# **Challenge: Building a Support Ticket System**
-Your task is to build a Support Ticket System application that allows users to create Support Tickets. The application should consist of a backend API and a frontend interface.
+## Backend
+The backend was developed following Clean Architecture principles. Additionally, it adheres to SOLID and Clean Code principles to ensure maintainability, scalability, and readability.
 
-All the icons and other things for the frontend challenge you may need is inside of the `frontend/public` folder
+### Project Sctructure
+The backend project follows a structured and organized layout within the src directory:
 
-**Requirements:**
-1. Backend:
-   - [ ] Use TypeScript, MongoDB, Mongoose, and Express.js to create a RESTful API.
-   - [ ] Implement the following endpoints:
-      - [ ] GET `/tickets`: Retrieve a list of all tickets sorted by deadline desc.
-      - [ ] POST `/tickets`: Create a new ticket.
-      - [ ] PUT `/tickets/{id}`: Update the ticket.
-   - [ ] Each ticket should have the following properties: `client`, `issue`, `status('open', 'closed')` and `deadline`.
-   - [ ] **(Extra)** Create an endpoint called GET `/report` which it will query all the tickets inside the database, and it will generate a XLSX file with the columns: `client`, `issue` and `status` 
+```
+src  
+├── core  
+│   ├── entities        # Domain entities or models representing business objects  
+│   ├── repositories    # Interfaces/abstractions for data access operations  
+│  
+├── infra  
+│   ├── model           # Database models or schemas  
+│   ├── repositories    # Implementations of repository interfaces for data access  
+│  
+├── interface  
+│   ├── adapters        # Mechanisms for data adaptation or transformations  
+│   ├── controllers     # Application controllers handling business logic  
+│   ├── http            # HTTP configurations, middleware, or request handlers  
+│   ├── routes          # API routes mapping endpoints to controllers  
+│  
+├── shared              # Shared utilities, helpers, or constants  
+│  
+└── use-cases           # Application's business use cases or services  
+```
 
-2. Frontend:
-   - [ ] Use TypeScript, ReactJS, Material UI, and Styled Components to create the user interface.
-   - [ ] The frontend should display a list of tickets, including their client name, issue message, deadline and status.
-   - [ ] The ticket status should be an icon with variants in 3 colors depending on the following cases:
-      - [ ] Green: status = closed
-      - [ ] Yellow: status = open AND today < deadline
-      - [ ] Red: status = open AND today > deadline
-   - [ ] Users should be able to change tickets status using a slider button
-   - [ ] Include a button that will generate random ticket with dates between now - 2 days and now + 2 days, random client name, random issue message and save it using the REST API every time it's clicked
-   - [ ] Tip: Use Debounce to avoid concurrent generation of tickets.
-   - [ ] **(Extra)** Create a button in the frontend that will call the GET `/report` endpoint and it will let the user download the generated report. 
+### API Features
+The backend provides a RESTful API built with TypeScript, MongoDB, Mongoose, and Express.js to manage support tickets. The API includes the following features:
 
-**Check the UI images at the end of the requirements.**
-3. General Requirements:
-   - [ ] Use appropriate error handling and validation techniques throughout the application.
-   - [ ] Write clean and maintainable code, following SOLID principles and design patterns.
-   - [ ] Provide clear instructions on how to set up and run the application.
+Endpoints:
+- GET /tickets: Retrieves a list of all tickets, sorted by the deadline in descending order.
+- POST /tickets: Creates a new ticket
+- PUT /tickets/{id}: Updates an existing ticket based on the provided id.
+- GET /report (Extra): Queries all tickets in the database and generates an XLSX report with the columns: client, issue, and status.
 
-4. Extra
-   - [ ] Include unit tests for critical parts of the application (e.g., API endpoints, data validation).
-   - [ ] Containerize both applications using docker
-   - [ ] Provide a docker compose file to spin up the application locally.
+## Front end
+The frontend is built with TypeScript and React, leveraging Material UI for responsive, customizable components following Material Design. It uses fetch to interact with the backend API, handling data requests and errors. The application is modular, with components, hooks, and pages organized for scalability.
 
-   ![layout](ui/layout.png)
+### Project Sctructure
+The frontend project follows a structured and organized layout within the src directory:
 
-**Deliverables:**
-- Provide a GitHub repository with your code.
-- Include a README file with instructions on how to set up and run the application.
-- You can also include any additional documentation or comments to explain your design choices or assumptions.
+```
+src
+├── components       # Reusable UI components (buttons, forms, etc.)
+├── api              # Functions for interacting with the backend API (fetch requests)
+├── styles           # Global styles and Material UI theme customization
+└── utils            # Helper functions and utility methods
+```
+
+## How to run
+To run the application in a development environment, ensure you have the following tools installed: [Git](https://git-scm.com/), [Docker](https://docs.docker.com/engine/install/) and [Docker Compose](https://docs.docker.com/compose/install/).
+
+```
+# Clone repository
+$ git clone <repository-url>
+
+# Go to the project directory
+$ cd hiring-challenge
+
+# Launch the application using Docker Compose
+$ docker-compose up
+```

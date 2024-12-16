@@ -46,7 +46,7 @@ yarn test:c
 ```
 
 ## Front end
-The frontend is built with TypeScript and React, leveraging Material UI for responsive, customizable components following Material Design. It uses fetch to interact with the backend API, handling data requests and errors. The application is modular, with components, hooks, and pages organized for scalability.
+The frontend is built with TypeScript and React, leveraging Material UI for responsive, customizable components following Material Design. It uses fetch to interact with the backend API, handling data requests and errors. 
 
 <img src=".github/assets/screen.png" alt="Support Ticket System">
 
@@ -69,7 +69,7 @@ To run the application in a development environment, ensure you have the followi
 $ git clone <repository-url>
 
 # Go to the project directory
-$ cd hiring-challenge
+$ cd support-ticket-challenge
 
 # Launch the application using Docker Compose
 $ docker-compose up

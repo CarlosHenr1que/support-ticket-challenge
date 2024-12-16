@@ -47,7 +47,7 @@ yarn test:c
 
 ### Further improvements 
 Fetching all data from MongoDB and generating an XLSX file in the same request can cause delays or timeouts when handling large datasets.
-Would be a good idead setting up a background job to handle the report generation. 
+Would be a good idea setting up a background job to handle the report generation. 
 That way, you can immediately respond to the user with a job ID, and once the report is ready, notify them with a download link. It’s a much smoother experience for everyone!
 
 ## Front end

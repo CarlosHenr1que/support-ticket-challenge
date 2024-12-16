@@ -102,4 +102,22 @@ describe('API Requests', () => {
         }));
         expect(result).toEqual(mockTicket);
     });
+
+    it('should return undefined if updateTicketRequest fails', async () => {
+        const mockTicket: Ticket = {
+            id: '123',
+            client: 'Client A',
+            issue: 'Issue description',
+            status: 'open',
+            deadline: '2024-12-31',
+        };
+
+        (fetch as jest.Mock).mockResolvedValueOnce({
+            ok: false,
+        });
+
+        const result = await updateTicketRequest(mockTicket);
+
+        expect(result).toBeUndefined();
+    });
 });

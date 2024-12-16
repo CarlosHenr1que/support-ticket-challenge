@@ -9,6 +9,7 @@ import ChevronRight from '@mui/icons-material/ChevronRight';
 
 function App() {
   const [tickets, setTickets] = useState<Ticket[]>([])
+  const [isCreateRandomPressed, setIsCreateRandomPressed] = useState(false)
 
   const handleGetTicketsRequest = async () => {
     const tickets = await getTicketsRequest()
@@ -18,6 +19,11 @@ function App() {
   }
 
   const onCreateRandomlyClick = async () => {
+    if(isCreateRandomPressed) {
+      return
+    }
+    setTimeout(() => {setIsCreateRandomPressed(false)}, 1000)
+    setIsCreateRandomPressed(true)
     const ticketPromises = generateTwoRandomTickets().map((item) => addTicketRequest(item as Ticket));
     const response = await Promise.all(ticketPromises);
     let newTickets: Ticket[] = []

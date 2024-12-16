@@ -74,6 +74,28 @@ describe('App Component', () => {
     expect(updateTicketSpy).toHaveBeenCalled()
   });
 
+  it('should undo update if services does not return ticket', async () => {
+    const tickets: Ticket[] = [{
+      client: "John Doe",
+      issue: "Cannot access my account",
+      status: "open",
+      deadline: "2024-12-15T15:19:14.980Z",
+    }];
+    jest.spyOn(ticketService, "getTicketsRequest").mockResolvedValueOnce(tickets)
+    const updateTicketSpy = jest.spyOn(ticketService, "updateTicketRequest").mockResolvedValueOnce(undefined)
+
+    render(<ThemeProvider theme={theme}><App /></ThemeProvider>)
+
+    expect(await screen.findByText(tickets[0].client.toUpperCase())).toBeInTheDocument()
+    expect(await screen.findByText(tickets[0].issue)).toBeInTheDocument()
+    expect(await screen.findByText(formatDate(tickets[0].deadline))).toBeInTheDocument()
+
+    const switchButton = (await screen.findByRole("checkbox"))
+    fireEvent.click(switchButton)
+
+    expect(updateTicketSpy).toHaveBeenCalled()
+  });
+
   it('should generate random tickets when generate randomly is pressed', async () => {
     const ticket: Ticket = {
       client: "John Doe",

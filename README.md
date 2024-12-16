@@ -37,6 +37,14 @@ Endpoints:
 - PUT /tickets/{id}: Updates an existing ticket based on the provided id.
 - GET /report (Extra): Queries all tickets in the database and generates an XLSX report with the columns: client, issue, and status.
 
+### Testing
+**Coverage:** 100%
+
+The tests are organized and executed using Jest to ensure consistent and high-quality code. You can run the test suite with the following command:
+```
+yarn test:c
+```
+
 ## Front end
 The frontend is built with TypeScript and React, leveraging Material UI for responsive, customizable components following Material Design. It uses fetch to interact with the backend API, handling data requests and errors. The application is modular, with components, hooks, and pages organized for scalability.
 

@@ -45,6 +45,11 @@ The tests are organized and executed using Jest to ensure consistent and high-qu
 yarn test:c
 ```
 
+### Further improvements 
+Fetching all data from MongoDB and generating an XLSX file in the same request can cause delays or timeouts when handling large datasets.
+Would be a good idead setting up a background job to handle the report generation. 
+That way, you can immediately respond to the user with a job ID, and once the report is ready, notify them with a download link. It’s a much smoother experience for everyone!
+
 ## Front end
 The frontend is built with TypeScript and React, leveraging Material UI for responsive, customizable components following Material Design. It uses fetch to interact with the backend API, handling data requests and errors. 
 
